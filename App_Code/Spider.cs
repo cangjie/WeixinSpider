@@ -24,7 +24,7 @@ public class Spider
     {
         string listPageContent = Util.GetWebContent(url);
         string regBlockStr = "<li +d=\"[^\"]+\" *>[\\s|\\S]+?</li>";
-        string regAnchorStr = "<a uigs=\"pc_11_\\d+_title\" href=\"http://mp.weixin.qq.com/s?[^\"]+\" target=\"_blank\">.+</a>";
+        string regAnchorStr = "<a uigs=\"pc_\\d+_\\d+_title\" href=\"http://mp.weixin.qq.com/s?[^\"]+\" target=\"_blank\">.+</a>";
         string regAccountStr = "data-isV=\"[0,1]\">.+</a>";
         string regUrlStr = "http://mp.weixin.qq.com/s?[^\"]+";
         string regTitleStr = ">.+?<";
