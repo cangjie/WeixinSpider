@@ -1,11 +1,17 @@
 ﻿<%@ Application Language="C#" %>
-
+<%@ Import Namespace="System.Threading" %>
 <script runat="server">
 
     void Application_Start(object sender, EventArgs e) 
     {
         // Code that runs on application startup
+        ThreadStart tsCollectArticles = new ThreadStart(Spider.CollectArticles);
+        Spider.threadCollectArticles = new Thread(tsCollectArticles);
+        Spider.threadCollectArticles.Start();
 
+        ThreadStart tsUpdateReadNum = new ThreadStart(Spider.UpdateArticleReadNum);
+        Spider.threadUpdateArticleReadNum = new Thread(tsUpdateReadNum);
+        Spider.threadUpdateArticleReadNum.Start();
     }
     
     void Application_End(object sender, EventArgs e) 

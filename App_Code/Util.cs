@@ -30,7 +30,6 @@ public class Util
     protected static DateTime tokenTime = DateTime.MinValue;
     public static string conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
 
-    public static string domainName = System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim();
 
     public static bool IsCellNumber(string number)
     {
@@ -125,40 +124,7 @@ public class Util
         return GetWebContent(url, "GET", "", "html/text");
     }
 
-    public static string UploadImageToWeixin(string path, string token)
-    {
-        List<FormItem> list = new List<FormItem>();
-
-        list.Add(new FormItem()
-        {
-            Name = "access_token",
-            ParamType = ParamType.Text,
-            Value = token
-        });
-        //添加FORM表单中这条数据的类型，目前只做了两种，一种是文本，一种是文件
-        list.Add(new FormItem()
-        {
-            Name = "type",
-            Value = "image",
-            ParamType = ParamType.Text
-        });
-        //添加Form表单中文件的路径，路径必须是基于硬盘的绝对路径
-        list.Add(new FormItem()
-        {
-            Name = "media",
-            Value = path,
-            ParamType = ParamType.File
-        });
-        //通过Funcs静态类中的PostFormData方法，将表单数据发送至http://file.api.weixin.qq.com/cgi-bin/media/upload腾讯上传下载文件接口
-        string jsonStr = Funcs.PostFormData(list, "http://file.api.weixin.qq.com/cgi-bin/media/upload");
-        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
-        object v;
-        json.TryGetValue("media_id", out v);
-        string mediaId = v.ToString();
-        return mediaId;
-    }
-
+    
     public static string GetQrCodeTicketTemp(string token, long scene)
     {
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + token);
