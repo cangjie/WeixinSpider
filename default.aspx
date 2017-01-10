@@ -7,7 +7,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         //Spider.AnalizeArticle("http://weixin.sogou.com/pcindex/pc/pc_11/pc_11.html");
-        Spider.UpdateArticleReadNum();
+        //Spider.UpdateArticleReadNum();
     }
 </script>
 
