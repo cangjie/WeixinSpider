@@ -61,7 +61,7 @@ public class Article
 
     public static Article TryAddArticle(string suffix, string title, string accountName)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from weixin_article where url_suffix = '" + suffix + "' and title = '" + title + "' and account_name = '" + accountName.Trim() + "'  ");
+        DataTable dt = DBHelper.GetDataTable(" select * from weixin_article where  title = '" + title + "' and account_name = '" + accountName.Trim() + "'  ");
         if (dt.Rows.Count == 0)
         {
             string[,] insertParam = { { "title", "varchar", title.Trim() }, 
@@ -71,6 +71,9 @@ public class Article
             {
                 DataTable dtNewRow = DBHelper.GetDataTable(" select max([id]) from weixin_article ");
                 int newId = int.Parse(dtNewRow.Rows[0][0].ToString());
+                string[,] updateParam = { {"url_suffix", "varchar", suffix } };
+                string[,] keyParam = { {"id", "int", newId.ToString() } };
+                DBHelper.UpdateData("weixin_article", updateParam, keyParam, Util.conStr.Trim());
                 Article article =  new Article(newId);
                 article.UpdateReadNum();
                 return article;
